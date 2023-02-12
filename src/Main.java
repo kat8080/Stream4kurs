@@ -19,9 +19,13 @@ public class Main {
     public static <T> void findMinMax(Stream<? extends T> stream,
                                           Comparator<? super T> order,
                                           BiConsumer<? super T, ? super T> minMaxConsumer) {
-            List<T> list = stream.sorted(order).collect(Collectors.toList());
+        List<T> list = stream.sorted(order).collect(Collectors.toList());
+        if (list.isEmpty()) {
+            minMaxConsumer.accept(null, null);
+        } else {
             minMaxConsumer.accept(list.get(0), list.get(list.size() - 1));
         }
+    }
 
     //ЗАДАЧА 2
     public static void byEvenNumber(Stream<Integer> number) {
